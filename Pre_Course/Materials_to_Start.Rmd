@@ -1,0 +1,21 @@
+---
+date: "1/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Watch One of the following Videos:
+
+### Introduction to R and RStudio
+  https://youtu.be/lL0s1coNtRk
+
+### Introduction to Data Science with R - Data Analysis Part 1
+  https://youtu.be/32o0DnuRjfg
+
+## d
+  https://youtu.be/_V8eKsto3Ug
+
