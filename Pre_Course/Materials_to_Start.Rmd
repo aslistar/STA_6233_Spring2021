@@ -53,6 +53,7 @@ We will also refer to some of this material throughout the course so do not feel
   *Other Cheatsheets*  
   https://rstudio.com/resources/cheatsheets/  
   
-#### **Singer and Willet Real World Examples with Code**  
-  https://stats.idre.ucla.edu/other/examples/alda/ 
+#### **Singer and Willet Real World Examples with Code**
+  https://stats.idre.ucla.edu/other/examples/alda/  
+  
 
