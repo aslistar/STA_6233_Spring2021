@@ -7,10 +7,11 @@ library(data.table) #Now you can reload the library and shouldn't get an error
 
 #We create an object to hold the url. This can be done in one line, but this helps see what's happening.
 url<-"https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+url<-"https://raw.githubusercontent.com/mattdemography/STA_6233_Spring2021/main/Data/nic-cage.csv"
 
 #### Importing Files ####
 #Now download the file
-download.file(url, destfile = "cameras.csv")
+download.file(url, destfile = "cage.csv")
 list.files()
 
 #Where does the file go? It goes to a default directory since we didn't set a working directory
