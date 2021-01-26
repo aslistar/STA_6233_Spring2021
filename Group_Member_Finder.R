@@ -3,7 +3,7 @@
   stu<-read.csv("https://raw.githubusercontent.com/mattdemography/STA_6233_Spring2021/main/Data/abc123_list.csv", header=F)
 
 #Insert Your Number Here
-  your_num<-12
+  your_num<-6
   
   set.seed(134)
   s<-sample(1:33, 33, replace=F)
@@ -27,3 +27,4 @@
     print(paste0("Your group number is ", your_group," and your teammates' e-mails are ",
                  team_sub[i,4], "@my.utsa.edu"))  
   }
+  
