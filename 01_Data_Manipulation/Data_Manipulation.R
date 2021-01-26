@@ -6,12 +6,12 @@ install.packages("data.table")
 library(data.table) #Now you can reload the library and shouldn't get an error
 
 #We create an object to hold the url. This can be done in one line, but this helps see what's happening.
-url<-"https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+#url<-"https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
 url<-"https://raw.githubusercontent.com/mattdemography/STA_6233_Spring2021/main/Data/nic-cage.csv"
 
 #### Importing Files ####
 #Now download the file
-download.file(url, destfile = "cage.csv")
+download.file(url, destfile = "C:/Users/Matthew/Documents/cage.csv")
 list.files()
 
 #Where does the file go? It goes to a default directory since we didn't set a working directory
@@ -21,30 +21,43 @@ list.files()
 
 #Now that the file has been downloaded we can read it into R
 #Read.csv
-  dat_csv<-read.csv("C:/Users/Matthew/Documents/cameras.csv")
+  dat_csv<-read.csv("C:/Users/Matthew/Documents/cage.csv")
+  ?read.csv()
   #dat_csv<-read.csv("./Documents/cameras.csv")
 #Read.table
-  dat_table<-read.table("C:/Users/Matthew/Documents/cameras.csv", sep=",")
+  dat_table<-data.table("C:/Users/Matthew/Documents/cage.csv", sep=",")
 #Read.xlsx
   dat_xlsx<-read.xlsx("C:/Users/Matthew/Documents/cameras.csv", sheetIndex=1, header=T) #xlsx is my least favorite method
 
+#Take cage data frame and make it data table
+  str(dat_csv)
+  dt<-data.table(dat_csv)
+  str(dt)
+  
 #Do you see a difference?
   #How do we fix this?
 
 #What are in our data?
-  head(dat_table)
-  names(dat_table)
+  head(dt)
+  tail(dt)
+  names(dt)
 
 #Count Number of Rows/Observations
-  nrow(dat_table)
+  nrow(dt)
 
+#Percent of Voice Actor Movies
+  (table(dt$Voice)[2]/nrow(dt))*100
+  
+  #table(dt$Rating) #Look at table function
+  
 #Count Number of Columns
-  length(dat_table)
+  length(dt)
   
 #Read Specific Rows
-  dat_table[1,]
+  dt[1,]
   #How Would I capture more than one row?
-  #dat_table[,]  
+  dt[1:5,]  
+  dt[c(90, 5, 8),]
   
 #Read Specific Columns
   dat_table[,1]

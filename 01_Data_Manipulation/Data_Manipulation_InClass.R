@@ -62,7 +62,9 @@ dt[c(90, 5, 8),]
 #Read Specific Columns
 dat_table[,1]
 #How would I capture more than one column?
-dt[,]
+new_dt<-dt[c(50:60,3,6:8),c(6,3)]
+head(new_dt)
+names(new_dt)
 
 #How Would I capture the third observation in the 5th column?
 #Answer
@@ -74,20 +76,36 @@ dt[,]
 #What are the names of the variables in the file?
 #What is the response to the 10th column by the 20th through 25th respondent?
 
+url<-"https://raw.githubusercontent.com/mattdemography/STA_6233_Spring2021/main/Data/SampleMattData.csv"
+download.file(url, destfile = "C:/Users/Matthew/Documents/SampleMattData.csv")
+sampleMD<-read.csv("C:/Users/Matthew/Documents/SampleMattData.csv")
+
+dt1 <- data.table(sampleMD)
+nrow(dt1)
+length(dt1)
+names(dt1)
+dt1[c(20:25),10]
+
+
 #### Subsetting ####
 #Let's limit our example data to the first three columns.
-ex_sub<-ex[,1:3]
+ex_sub<-dt1[,1:3]
+names(ex_sub)
+str(ex_sub)
 
 #Now let's further limit this to only respondents who agree with the first question
 table(ex_sub$My.district.supports.me.to.take.risks.and.try.new.things)
+table(ex_sub[,2])
+
 ex_sub1<-subset(ex_sub, ex_sub$My.district.supports.me.to.take.risks.and.try.new.things=="Agree")
 nrow(ex_sub1)  
 
 #Now Create a subset using a randomization funciton in dplyr
-ex_random<-sample_n(ex, 400, replace=F)
+library(dplyr)
+ex_random<-sample_n(dt1, 400, replace=F)
 
 #What is the first row of this new dataset?
-
+ex_random[1,]
 
 #### Changing Variables ####
 #I don't like those long column names - Let's change this
@@ -100,7 +118,8 @@ names(ex_sub1)
 #Another Way
 ex_sub1<-subset(ex_sub, ex_sub$My.district.supports.me.to.take.risks.and.try.new.things=="Agree")
 names(ex_sub1)
-ex_sub1<-ex_sub1 %>% rename(new_things=2, recommend=3)
+ex_sub1<-ex_sub1 %>% dplyr::rename(new_things=2, recommend=3)
+names(ex_sub1)
 
 #Yet Another Way
 ex_sub1<-subset(ex_sub, ex_sub$My.district.supports.me.to.take.risks.and.try.new.things=="Agree")
@@ -115,8 +134,13 @@ ex_sub1$newvar<-ifelse(ex_sub1$recommend=="Somewhat Agree", "Agree", ex_sub1$rec
 table(ex_sub1$newvar)  
 
 ex_sub1$newvar<-ifelse(ex_sub1$recommend=="Somewhat Agree" | ex_sub1$recommend=="Strongly Agree", "Agree", 
-                       ifelse(ex_sub1$recommend=="Strongly Disagree", "Disagree", ex_sub1$recommend))
+                       ifelse(ex_sub1$recommend=="Strongly Disagree" | ex_sub1$recommend=="Somewhat Disagree", "Disagree", ex_sub1$recommend))
 table(ex_sub1$newvar)
+
+ex_sub1[ , newvar_dt := ifelse(ex_sub1$recommend=="Somewhat Agree" | ex_sub1$recommend=="Strongly Agree", "Agree", 
+                               ifelse(ex_sub1$recommend=="Strongly Disagree" | ex_sub1$recommend=="Somewhat Disagree", "Disagree", ex_sub1$recommend))]
+table(ex_sub1$newvar)
+table(ex_sub1$newvar_dt)
 
 #What's Missing?
 table(ex_sub1$recommend)  
@@ -133,9 +157,10 @@ system.time(read.csv(file))
 
 #Let's create some data to show the functionality of data.table
 #Set size of dataset
+set.seed(100)
 size<-20000
 
-Years<-sample(c(2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019), size, replace=T)
+#Years<-sample(c(2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019), size, replace=T)
 Years<-sample(c("2011", "2012", "2013", "2014", 2015, 2016, 2017, 2018, 2019), size, replace=T)
 
 Months<-sample(c("January", "February", "March", "April", "May", "June", "July",
@@ -150,6 +175,7 @@ dt<-data.table(Orgs=Orgs, Months=Months, Region=Region, Years=Years, Cost=Cost)
 
 #Subset the data table 
 dtm<-dt[dt$Months=="March",]
+table(dtm$Months)
 
 #Rows
 dt[c(2,3)]
@@ -158,9 +184,11 @@ dt[,c(2,3)]
 
 #Calculating values for variables with expressions
 sumstats<-dt[,list(mean(Cost), sum(Cost))]
+sumstats
 
 #Creating New Columns
 dt[,newvar:=Cost/2]
+summary(dt$Cost)
 summary(dt$newvar)    
 head(dt)    
 
