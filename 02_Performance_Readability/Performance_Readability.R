@@ -19,7 +19,7 @@
   #for(i in nums)
 
 #Now let's try loops with real data.
-dat<-read.csv("https://raw.githubusercontent.com/mattdemography/STA_6233/master/Data/SampleMattData.csv", stringsAsFactors = F)
+dat<-read.csv("https://raw.githubusercontent.com/mattdemography/STA_6233_Spring2021/master/Data/SampleMattData.csv", stringsAsFactors = F)
 
 #Checking the Names of the variables
   names(dat)
