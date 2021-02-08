@@ -2,10 +2,10 @@
 library(dplyr)
 
 #Setting Up File Paths Online
-main<-"https://raw.githubusercontent.com/mattdemography/STA_6233/master/Data/"
+main<-"https://raw.githubusercontent.com/mattdemography/STA_6233_Spring2021/master/Data/"
 
 #Bring in the Data Dictionary from the 'Data' folder
-dd <- read.csv("https://raw.githubusercontent.com/mattdemography/STA_6233/master/Data/Data_Dictionary_revised.csv", stringsAsFactors=FALSE)
+dd <- read.csv("https://raw.githubusercontent.com/mattdemography/STA_6233_Spring2021/master/Data/Data_Dictionary_revised.csv", stringsAsFactors=FALSE)
 
 #The data dictionary file has a list of file names and years. It also contains variable names and the position of the variable in the file
 #I want to rename each variable using this information. I want to rename variables in files beginning with 'campstud' and 'campperf'
