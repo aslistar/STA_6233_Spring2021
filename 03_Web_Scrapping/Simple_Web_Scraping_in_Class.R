@@ -2,6 +2,7 @@
 library(rvest)
 library(dplyr)
 library(plyr)
+library(data.table)
 
 #Create a trim function which uses regular expressions to clean white space
 trim <- function( x ) {
@@ -27,11 +28,12 @@ for(i in 1:length(teams)){
   table_p<-html_table(get_roster) 
   
   #Keep only players in this table
-  players<-data.frame(table_p[[1]][["Player"]]) 
+  players<-data.frame(table_p[[1]][["Player"]])
+  players_dt<-data.table(table_p[[1]][["Player"]])
   players<-players %>% dplyr::rename(Player_Name=1)
   
   #Add team name to table 
-  players$team<-teams[i]  
+  players$team<-teams[i]
   
   #Build Container for links
   all_links<-data.frame(html=character()) 
@@ -82,7 +84,7 @@ theurl<-paste("http://www.basketball-reference.com",path,"/","gamelog/2019/", se
 for(i in 1:nrow(all_players)){
   tryCatch({
     html<- read_html(theurl[i])
-    games<-html_node(html,"")
+    games<-html_node(html,"#pgl_basic")
     games_table<-html_table(games, fill=T)
     
     #Change names of Blank Columns
@@ -90,8 +92,10 @@ for(i in 1:nrow(all_players)){
       names(games_table)[8]<-"Result"
     
     #Remove Games Player Didn't Play
-    
+    games_table<- games_table[which(games_table$G!=""),]
+      
     #Remove Games that are not stats, but columns
+    games_table<- games_table[which(games_table$G!="G"),]
     
     #Make 'G' numeric
     games_table$G<-as.numeric(games_table$G)
@@ -100,6 +104,7 @@ for(i in 1:nrow(all_players)){
     games_table$Player<-player[i]
     
     #Attach Team
+    games_table$Team<-team[i]
     
     stats<-rbind(stats, games_table)
     
