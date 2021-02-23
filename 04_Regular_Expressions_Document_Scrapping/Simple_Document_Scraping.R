@@ -8,9 +8,9 @@ trim <- function( x ) {
 }
 
 #### Bring in PDF ####
-download.file("https://github.com/mattdemography/STA_6233/raw/master/Data/army.pdf",
-              "./Army.PDF")
-  a<-pdf_text("./Army.PDF")
+#download.file("https://github.com/mattdemography/STA_6233_Spring2020/raw/master/Data/army.pdf", "./Army.PDF")
+  a<-pdf_text('C:/Users/Matthew/Dropbox/Courses Taught/Advanced_R/Github_Projects/STA_6233_Spring2021/Data/army.pdf')
+  
 
 #Make data into a data frame. This will have to be done in a loop.
   #Breaks by line - the \n does this
