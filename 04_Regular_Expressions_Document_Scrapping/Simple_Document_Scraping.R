@@ -2,6 +2,7 @@
 library("tm")
 library("pdftools")
 library("stringr")
+library(plyr)
 
 trim <- function( x ) {
   gsub("(^[[:space:]]+|[[:space:]]+$)", "", x)
@@ -9,7 +10,7 @@ trim <- function( x ) {
 
 #### Bring in PDF ####
 #download.file("https://github.com/mattdemography/STA_6233_Spring2020/raw/master/Data/army.pdf", "./Army.PDF")
-  a<-pdf_text('C:/Users/Matthew/Dropbox/Courses Taught/Advanced_R/Github_Projects/STA_6233_Spring2021/Data/army.pdf')
+a<-pdf_text('C:/Users/Matthew/Dropbox/Courses Taught/Advanced_R/Github_Projects/STA_6233_Spring2021/Data/army.pdf')
   
 
 #Make data into a data frame. This will have to be done in a loop.
@@ -74,7 +75,7 @@ if (j==1){
   #Find First, Last, and Suffix using Regular Expressions
   army$First<-str_extract(army$Name, pattern="([^A-z])([A-z]+) ")
   army$Last<-str_extract(army$Name, pattern="^([A-z]+)")
-  army$Suffix<-str_extract(army$Name, "JR|SR|III")
+  army$Suffix<-str_extract(army$Name, " JR| SR| III")
   
   #Get MOS and ETS Dates
   army$MOS<-date_split[,1]
