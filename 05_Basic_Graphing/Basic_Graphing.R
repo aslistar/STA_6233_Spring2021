@@ -21,6 +21,8 @@ library(plyr)
 table(acs2$STATE)
 table(acs2$COUNTY)
 table(acs2$Edu_Female)
+summary(acs2$Edu_Female)
+summary(acs2$Edu_Male)
 
 #Box Plots
 boxplot(acs2$Edu_Tot, main="Title", xlab="X Axis Title", ylab="Y Axis Title")
@@ -85,7 +87,8 @@ title("Fictionalized Line Graph") #Add a Title to the graph
 #Look at data
 names(economics)
 View(economics)
-a <- ggplot(economics, aes(x=date, x=unemploy))
+a <- ggplot(economics, aes(x=date, y=unemploy))
+a
 
 names(seals)
 View(seals)
@@ -111,16 +114,21 @@ ggplot(mpg, aes(displ, hwy)) + geom_point()
 #Discrete and Continuous
 f <- ggplot(mpg, aes(class, hwy))
 f + geom_col(fill="red") #Can Use hex as well as names
-f + geom_col(fill="#8dd3c7") #Can Use hex as well as names
+f + geom_col(fill="#bcbddc") #Can Use hex as well as names
 f + geom_boxplot()
 
 m<-mpg
 hist(mpg$hwy)
+
+c<-ggplot(mpg, aes(hwy))
+c + geom_dotplot(color="blue1", fill="red", alpha=.1)
+c + geom_density(kernel="gaussian")
 #Create dummy for good hwy mpg
 m$good_hwy<-ifelse(m$hwy>=30, 1, 0)
 table(m$good_hwy)
 
 ggplot(m, aes(good_hwy)) + geom_bar(fill="pink") + geom_point(y=m$good_hwy)
+
 
 #Maps
 library(maps)
