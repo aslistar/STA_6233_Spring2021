@@ -163,13 +163,20 @@ I am providing Google Visualizations. Unfortunately after creation of this lesso
 
 ```{r visuals_4, echo=FALSE, warning=FALSE}
 #Create Google Visualizations  
-  m_reg<-gvisMotionChart(count_l[1:132,c(1:8)], idvar="cohort", timevar = "Month")
-  m_time<-gvisMotionChart(count_l[,c(1:2, 5:7)], idvar="cohort", timevar = "Month")
-  plot(m_reg)
-  plot(m_time)
+  #m_reg<-gvisMotionChart(count_l[1:132,c(1:8)], idvar="cohort", timevar = "Month")
+  #m_time<-gvisMotionChart(count_l[,c(1:2, 5:7)], idvar="cohort", timevar = "Month")
+  #plot(m_reg)
+  #plot(m_time)
   
   p <- ggplot(count_l, aes(x = Still_Employee, y=No_Longer_Employee, colour=cohort)
               )  +  geom_point(show.legend = FALSE, alpha = 0.7)
+  p
+
+  ex<-count_l[13:144,]
+  plot_ly(x = ex$Month, y = ex$Percent_Still_Employee, color = ex$cohort, type = 'scatter', mode = 'lines')
+ 
+#plot_ly(x = stocks$time, y = stocks$price, color = stocks$index, type = 'scatter', mode = 'lines')
+
 
 ```
 
