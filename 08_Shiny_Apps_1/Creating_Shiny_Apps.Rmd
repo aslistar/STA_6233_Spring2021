@@ -96,7 +96,7 @@ Let's take a closer look at this simple app. First notice that we bring in two d
 #Load the Library
 library(shiny)
 library(ggplot2)
-load(url("https://raw.githubusercontent.com/mattdemography/STA_6233/master/Data/nic-cage.RData"))
+load(url("https://raw.githubusercontent.com/mattdemography/STA_6233_Spring2021/master/Data/nic-cage.RData"))
 ```
   
 #### **Examining the UI**
