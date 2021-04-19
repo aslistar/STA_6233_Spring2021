@@ -9,38 +9,38 @@ library(RSQLite)
   dbListTables(con)
   
 #Show Variables in Database file
-  dbListFields(con, "Costs")
+  dbListFields(con, "Income")
 
 #Show Unique Values in a Variable in Database file
   dbGetQuery(con, "
             SELECT DISTINCT
             Orgs
             
-            FROM Costs")
+            FROM Income")
   
   dbGetQuery(con, "
             SELECT DISTINCT
             Region
             
-            FROM Costs")
+            FROM Income")
   
   dbGetQuery(con, "
             SELECT DISTINCT
             Orgs,
             Region
             
-            FROM Costs")
+            FROM Income")
   
-#Now Let's Do a Simple Query
+#### Do a Simple Query ####
   #If we want all the data
   all<-dbGetQuery(con, "
             SELECT * 
-            FROM Costs")
+            FROM Income")
   
   #If we want to limit our data
   dbGetQuery(con, "
             SELECT * 
-            FROM Costs
+            FROM Income
             Limit 100;")
   
   #If we want only some variables
@@ -50,7 +50,7 @@ library(RSQLite)
             Months,
             Year_ID
               
-            FROM Costs
+            FROM Income
             Limit 100;")
   
   #If we want to only bring back certain values
@@ -60,20 +60,55 @@ library(RSQLite)
             Months,
             Year_ID
               
-            FROM Costs
+            FROM Income
               
             WHERE Orgs='Texas Best'
               
             Limit 100;")
   
-#Write Tables to Database
+#### Complete a Table Join ####
+  # See what we have in our Expenses table?
+  # What should we join on?
+  # Bring in Expenses column from Expenses table
+  
+  #Inner Join
+  join<- dbGetQuery(con, "
+            SELECT
+            i.orgs,
+            i.Months,
+            i.Income,
+            e.Expenses,
+            e.U_ID
+            
+            FROM 
+            Income i
+            
+            LEFT JOIN Expenses e
+                ON i.U_ID = e.U_ID")
+  
+  join2<- dbGetQuery(con, "
+            SELECT
+            i.orgs,
+            i.Months,
+            i.Income,
+            e.Expenses,
+            e.U_ID
+            
+            FROM 
+            Expenses e
+            
+            LEFT JOIN Income i
+                ON i.U_ID = e.U_ID")
+  #61291
+  
+#### Write Tables to Database ####
   dbGetQuery(con, "CREATE TABLE some AS
              SELECT 
              Orgs,
              Months,
              Year_ID
              
-             FROM Costs
+             FROM Income
              
              WHERE Orgs='Texas Best'")
   
