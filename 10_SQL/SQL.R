@@ -121,3 +121,5 @@ library(RSQLite)
   #Delete It
   dbGetQuery(con, "DROP TABLE some")
   dbListTables(con)
+  
+#Interactions with R
