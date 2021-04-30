@@ -16,13 +16,13 @@ knitr::opts_chunk$set(echo = TRUE)
 your_num<-12
 
 set.seed(160)
-s<-sample(1:32, 32, replace=F)
+s<-sample(1:31, 31, replace=F)
 pos<-match(your_num, s)
-if(pos>1 & pos<32){
+if(pos>1 & pos<31){
   feedback_nums<-c(s[pos+1], s[pos-1])
 }else if(pos==1){
   feedback_nums<-c(s[pos+1], s[length(s)])
-}else if(pos==32){
+}else if(pos==31){
   feedback_nums<-c(s[length(pos)], s[pos-1])
 }
 
